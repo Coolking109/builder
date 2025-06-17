@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Weed Dispensary - Admin Dashboard</title>
+    <link rel="stylesheet" href="admin-styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Add Font Awesome for better icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar navigation -->
+        <nav class="admin-sidebar">
+            <div class="admin-logo">
+                <h2>TWD Admin</h2>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item active">
+                    <a href="#applications" class="nav-link">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Applications</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" id="usersNavBtn" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>User Management</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" id="settingsNavBtn" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li class="nav-item logout-item">
+                    <a href="#" id="logoutBtn" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main content area -->
+        <main class="admin-main">
+            <header class="admin-header">
+                <div class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <div class="admin-title">
+                    <h1>Applications Dashboard</h1>
+                </div>
+            </header>
+            
+            <div class="admin-controls">
+                <div class="filter-controls">
+                    <label for="statusFilter"><i class="fas fa-filter"></i> Filter:</label>
+                    <select id="statusFilter" class="status-filter">
+                        <option value="all">All Applications</option>
+                        <option value="pending">Pending</option>
+                        <option value="approved">Approved</option>
+                        <option value="denied">Denied</option>
+                    </select>
+                </div>
+                <div class="sort-controls">
+                    <label for="sortApplications"><i class="fas fa-sort"></i> Sort:</label>
+                    <select id="sortApplications" class="sort-select">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="admin-content">
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon pending-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Pending</h3>
+                            <p id="pendingCount">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon approved-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Approved</h3>
+                            <p id="approvedCount">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon denied-icon">
+                            <i class="fas fa-times-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Denied</h3>
+                            <p id="deniedCount">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon total-icon">
+                            <i class="fas fa-list"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total</h3>
+                            <p id="totalCount">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="applicationsList" class="applications-list">
+                    <!-- Applications will be loaded dynamically here -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Application Modal -->
+        <div id="applicationModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Application Details</h2>
+                <div id="applicationDetails" class="application-details">
+                    <!-- Application details will be loaded dynamically here -->
+                </div>
+                <div class="modal-actions">
+                    <button id="approveBtn" class="approve-btn">Approve</button>
+                    <button id="denyBtn" class="deny-btn">Deny</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Modal -->
+        <div id="settingsModal" class="modal">
+            <div class="modal-content settings-modal">
+                <span class="close-settings">&times;</span>
+                <h2>Webhook Settings</h2>
+                <div class="settings-form">
+                    <div class="form-group">
+                        <label for="webhookUrl">Discord Webhook URL</label>
+                        <input type="text" id="webhookUrl" placeholder="https://discord.com/api/webhooks/...">
+                        <small class="help-text">Enter the webhook URL from your Discord server</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="enableWebhook">Enable Notifications</label>
+                        <input type="checkbox" id="enableWebhook">
+                        <small class="help-text">Send notifications when application status changes</small>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" id="testWebhookBtn" class="test-btn">Test Webhook</button>
+                        <button type="button" id="saveSettingsBtn">Save Settings</button>
+                    </div>
+                </div>
+                <!-- ...existing webhook guide... -->
+            </div>
+        </div>
+        
+        <!-- User Management Modal -->
+        <div id="usersModal" class="modal">
+            <div class="modal-content users-modal">
+                <span class="close-users">&times;</span>
+                <h2>User Management</h2>
+                <div class="user-management">
+                    <div class="user-list-container">
+                        <h3>Admin Users</h3>
+                        <div id="usersList" class="users-list">
+                            <!-- Users will be loaded here dynamically -->
+                        </div>
+                        
+                        <h3 class="login-logs-title">Recent Logins</h3>
+                        <div id="loginLogs" class="login-logs">
+                            <!-- Login logs will be loaded here dynamically -->
+                        </div>
+                    </div>
+                    <div class="user-form-container">
+                        <h3>Add New User</h3>
+                        <form id="userForm" class="user-form">
+                            <input type="hidden" id="userId" value="">
+                            <div class="form-group">
+                                <label for="userFullName">Full Name</label>
+                                <input type="text" id="userFullName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="userDiscordId">Discord ID</label>
+                                <input type="text" id="userDiscordId" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="userUsername">Username</label>
+                                <input type="text" id="userUsername" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="userPassword">Password</label>
+                                <input type="password" id="userPassword" required>
+                            </div>
+                            <div class="form-group user-form-buttons">
+                                <button type="submit" class="submit-btn">Add User</button>
+                                <button type="button" id="cancelEditBtn" class="cancel-btn" style="display:none;">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin-script.js"></script>
+</body>
+</html>

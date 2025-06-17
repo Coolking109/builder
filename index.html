@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Weed Dispensary Application</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>The Weed Dispensary</h1>
+            <h2>Management Application</h2>
+        </header>
+        
+        <!-- Progress indicator -->
+        <div class="progress-container">
+            <div class="progress-bar" id="formProgress"></div>
+            <div class="progress-text">Application Progress: <span id="progressPercent">0%</span></div>
+        </div>
+        
+        <form id="applicationForm">
+            <!-- Personal Information Section -->
+            <div class="form-section">
+                <h3 class="section-title">Personal Information</h3>
+                
+                <div class="form-group">
+                    <label for="discordId">Discord ID <span class="required">*</span></label>
+                    <input type="text" id="discordId" name="discordId" placeholder="Enter your Discord ID (e.g. 1135203208525000734)" required>
+                    <small class="field-hint">This helps us identify you in our Discord server</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="age">Age <span class="required">*</span></label>
+                    <input type="number" id="age" name="age" min="13" placeholder="Your age" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="timezone">What is your timezone?</label>
+                    <select id="timezone" name="timezone" required>
+                        <option value="" disabled selected>Select your timezone</option>
+                        <option value="-12">UTC-12 (Baker Island)</option>
+                        <option value="-11">UTC-11 (Samoa)</option>
+                        <option value="-10">HST (Hawaii)</option>
+                        <option value="-9">AKST (Alaska)</option>
+                        <option value="PST">PST (Pacific Time - Los Angeles)</option>
+                        <option value="MST">MST (Mountain Time - Denver)</option>
+                        <option value="CST">CST (Central Time - Chicago)</option>
+                        <option value="EST">EST (Eastern Time - New York)</option>
+                        <option value="AST">AST (Atlantic Time - Halifax)</option>
+                        <option value="-3">BRT (Brazil - São Paulo)</option>
+                        <option value="-2">UTC-2 (Mid-Atlantic)</option>
+                        <option value="-1">UTC-1 (Azores)</option>
+                        <option value="GMT">GMT/UTC (London)</option>
+                        <option value="CET">CET (Central Europe - Paris, Berlin)</option>
+                        <option value="EET">EET (Eastern Europe - Athens, Cairo)</option>
+                        <option value="MSK">MSK (Moscow)</option>
+                        <option value="4">UAE (Dubai)</option>
+                        <option value="5">PKT (Pakistan)</option>
+                        <option value="IST">IST (India - New Delhi)</option>
+                        <option value="6">BST (Bangladesh)</option>
+                        <option value="7">ICT (Thailand, Vietnam)</option>
+                        <option value="8">PHT/CST (Philippines, China)</option>
+                        <option value="JST">JST (Japan, Korea)</option>
+                        <option value="AEST">AEST (Sydney, Melbourne)</option>
+                        <option value="11">UTC+11 (Solomon Islands)</option>
+                        <option value="NZST">NZST (New Zealand)</option>
+                    </select>
+                    <small class="field-hint">Your local timezone will be detected automatically</small>
+                </div>
+            </div>
+            
+            <!-- Background & Experience Section -->
+            <div class="form-section">
+                <h3 class="section-title">Background & Experience</h3>
+                
+                <div class="form-group">
+                    <label for="membershipLength">How long have you been a part of The Weed Dispensary? <span class="required">*</span></label>
+                    <input type="text" id="membershipLength" name="membershipLength" placeholder="e.g. 6 months" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>At any point in time, have you ever been or are you currently an owner of a Friend tag? <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="previousOwner" value="yes" required> Yes</label>
+                        <label class="radio-label"><input type="radio" name="previousOwner" value="no"> No</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Are you in the California Roleplay main Discord server? <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="mainDiscord" value="yes" required> Yes</label>
+                        <label class="radio-label"><input type="radio" name="mainDiscord" value="no"> No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Are you in the CaliRP | Friend Tag Discord server? <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="friendTagDiscord" value="yes" required> Yes</label>
+                        <label class="radio-label"><input type="radio" name="friendTagDiscord" value="no"> No</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Availability Section -->
+            <div class="form-section">
+                <h3 class="section-title">Availability</h3>
+                
+                <div class="form-group">
+                    <label>What days are you able to do tasks and/or help out either in game or Discord? <span class="required">*</span></label>
+                    <div class="checkbox-group days-grid">
+                        <label class="checkbox-label"><input type="checkbox" name="availability" value="monday"> Monday</label>
+                        <label class="checkbox-label"><input type="checkbox" name="availability" value="tuesday"> Tuesday</label>
+                        <label class="checkbox-label"><input type="checkbox" name="availability" value="wednesday"> Wednesday</label>
+                        <label class="checkbox-label"><input type="checkbox" name="availability" value="thursday"> Thursday</label>
+                        <label class="checkbox-label"><input type="checkbox" name="availability" value="friday"> Friday</label>
+                        <label class="checkbox-label"><input type="checkbox" name="availability" value="saturday"> Saturday</label>
+                        <label class="checkbox-label"><input type="checkbox" name="availability" value="sunday"> Sunday</label>
+                    </div>
+                    <small class="field-hint">Please select at least one day</small>
+                </div>
+            </div>
+            
+            <!-- Qualifications Section -->
+            <div class="form-section">
+                <h3 class="section-title">Qualifications & Contributions</h3>
+                
+                <div class="form-group">
+                    <label for="betterThan">What makes you better than other applicants? <span class="required">*</span></label>
+                    <textarea id="betterThan" name="betterThan" rows="4" placeholder="Describe your unique qualifications..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="whyChooseYou">Why should we choose you over other applicants? <span class="required">*</span></label>
+                    <textarea id="whyChooseYou" name="whyChooseYou" rows="4" placeholder="Explain why you're the best fit for this position..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="contribution">Will you be able to add anything to the Discord, such as an in-game item: Peds/vehicles/Y-maps and/or Friend tags? <span class="required">*</span></label>
+                    <textarea id="contribution" name="contribution" rows="3" placeholder="Describe what resources you can contribute..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="offering">What do you have to offer for The Weed Dispensary Friend tag in general? <span class="required">*</span></label>
+                    <textarea id="offering" name="offering" rows="4" placeholder="Share your ideas and what you bring to the table..." required></textarea>
+                </div>
+            </div>
+            
+            <!-- Terms & Submission Section -->
+            <div class="form-section">
+                <h3 class="section-title">Agreement</h3>
+                
+                <div class="form-group policy-agreement">
+                    <label>Do you understand that asking about your application will result in an immediate denial? <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="understandDenial" value="yes" required> Yes, I understand</label>
+                        <label class="radio-label"><input type="radio" name="understandDenial" value="no"> No, I don't understand</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="submit-btn">Submit Application</button>
+                </div>
+            </div>
+        </form>
+        
+        <div id="notification" class="notification">
+            <p>Your application has been submitted successfully!</p>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
